@@ -1,0 +1,22 @@
+/* #x:hover{
+    box-shadow: 1px 4px 10px 1px rgba(255, 255, 255, 0.344);
+} */
+
+#pro{
+    animation: show99 ease 0.5s;
+}
+@keyframes show99{
+    from{
+        transform: translateY(1em);
+        opacity: 0.5;
+    }
+   to{
+    opacity: 1;
+    transform : translateY(0);
+   }
+}
+#bo, #to{
+    background: rgba(0, 0, 0, 0.775);
+    box-shadow: 10px 10px 70px 10px rgb(0, 0, 0);
+    animation: showup ease 0.8s;
+}

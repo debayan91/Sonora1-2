@@ -13,3 +13,4 @@ If you are developing a production application, we recommend using TypeScript an
 # Sonora
 # S1
 # Sonora1
+# Sonora1-2

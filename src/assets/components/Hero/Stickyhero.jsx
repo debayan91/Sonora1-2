@@ -15,6 +15,9 @@ const Stickyhero = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const timeoutRef = useRef(null);
+  // NEW: Ref to manage re-animation requests
+  const animationFrameRef = useRef(null);
+
 
   const handleSearch = (e) => {
     const value = e.target.value;
@@ -29,11 +32,13 @@ const Stickyhero = () => {
     }
   };
 
+
   const handleSelect = (product) => {
     setQuery(product.name);
     setFilteredProducts([]);
     navigate(`/products/${product.id}`, { state: { product } });
   };
+
 
   useEffect(() => {
     const links = document.querySelectorAll('#a1, #a2, #a3, #a4, #a5');
@@ -56,65 +61,69 @@ const Stickyhero = () => {
     });
   }, [isDarkMode]);
 
+
   const underlineStyle = {
     '--underline-color': isDarkMode ? '#ffffff' : '#000000',
   };
 
-  // Dropdown background colors for each link
+
   const dropdownColors = {
-    a1: '#FFFFFF', // Headphones - White
-    a2: '#E0E0E0', // In-Ears - Light Gray
-    a3: '#C0C0C0', // About - Silver
-    a4: '#A0A0A0', // Store - Dark Gray
+    a1: '#FFFFFF',
+    a2: '#E0E0E0',
+    a3: '#C0C0C0',
+    a4: '#A0A0A0',
   };
 
-  // Handler to set active dropdown when hovering over a link
-  const handleLinkMouseEnter = (dropdownId) => {
+  // --- MODIFIED: Robust hover logic ---
+
+  // Cancels any pending closing operation
+  const cancelCloseTimer = () => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
       timeoutRef.current = null;
     }
-    setActiveDropdown(dropdownId);
+    if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+        animationFrameRef.current = null;
+    }
   };
 
-  // Handler to delay clearing active dropdown when leaving a link
-  const handleLinkMouseLeave = () => {
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-    }
+  // Starts the timer that will close the dropdown
+  const startCloseTimer = () => {
     timeoutRef.current = setTimeout(() => {
       setActiveDropdown(null);
-    }, 150); // Small delay to allow dropdown onMouseEnter to trigger
+    }, 200); // 200ms delay before closing allows for travel time
   };
 
-  // Handler to maintain active dropdown when hovering over the dropdown
-  const handleDropdownMouseEnter = (dropdownId) => {
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-      timeoutRef.current = null;
+  const handleMouseEnter = (dropdownId) => {
+    cancelCloseTimer(); // Stop any pending close operation
+
+    // If a different dropdown is already visible, we need to re-trigger the animation
+    if (activeDropdown && activeDropdown !== dropdownId) {
+        setActiveDropdown(null); // Start closing the old one
+        // Use requestAnimationFrame to open the new one on the next paint
+        animationFrameRef.current = requestAnimationFrame(() => {
+            setActiveDropdown(dropdownId);
+        });
+    } else {
+        // Otherwise, just open it
+        setActiveDropdown(dropdownId);
     }
-    setActiveDropdown(dropdownId);
   };
 
-  // Handler to clear active dropdown when leaving the dropdown
-  const handleDropdownMouseLeave = () => {
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-    }
-    setActiveDropdown(null);
-  };
+  // --- End of modified logic ---
 
-  // Clean up any pending timeouts on component unmount
+
   useEffect(() => {
+    // Cleanup timers on component unmount
     return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
+      cancelCloseTimer();
     };
   }, []);
 
+
   return (
-    <div id="bottomnav" className={`w-screen bg-transparent flex z-[9999999] flex-col justify-center ${isDarkMode ? 'text-white' : 'text-black'} text-center font-100`} style={underlineStyle}>
+    <div id="bottomnav" className={`relative w-screen bg-transparent flex z-[9999999] flex-col justify-center ${isDarkMode ? 'text-white' : 'text-black'} text-center font-100`} style={underlineStyle}>
       <style jsx>{`
         a {
           display: inline-block;
@@ -140,39 +149,39 @@ const Stickyhero = () => {
       `}</style>
       <div id="bottomnav" className={`px-10 ${isDarkMode ? 'text-white' : 'text-black'} text-center font-100 ${isDarkMode ? 'bg-gradient-to-br from-[rgba(0,0,0,0.89)] to-[rgba(0,0,0,0.78)]' : 'bg-gradient-to-br from-[rgba(255,255,255,0.89)] to-[rgba(255,255,255,0.78)]'} backdrop-blur-sm flex flex-row justify-between items-center text-[19px] gap-14 tracking-[0.25em] font-roboto ${isDarkMode ? 'border-b-[rgba(255,255,255,0.2)]' : 'border-b-[rgba(0,0,0,0.2)]'} border-b-[1px]`}>
         <div className='flex z-500 flex-row justify-between items-center text-[19px] gap-14 tracking-[0.25em] font-roboto'>
-          <a 
-            href="/products/c/headphones" 
-            id="a1" 
+          <a
+            href="/products/c/headphones"
+            id="a1"
             className={`${isDarkMode ? 'hover:text-white/70' : 'hover:text-black/70'} transition-all duration-300`}
-            onMouseEnter={() => handleLinkMouseEnter('a1')}
-            onMouseLeave={handleLinkMouseLeave}
+            onMouseEnter={() => handleMouseEnter('a1')}
+            onMouseLeave={startCloseTimer} // MODIFIED
           >
             Headphones
           </a>
-          <a 
-            href="/products/c/iems" 
-            id="a2" 
+          <a
+            href="/products/c/iems"
+            id="a2"
             className={`${isDarkMode ? 'hover:text-white/70' : 'hover:text-black/70'} transition-all duration-300`}
-            onMouseEnter={() => handleLinkMouseEnter('a2')}
-            onMouseLeave={handleLinkMouseLeave}
+            onMouseEnter={() => handleMouseEnter('a2')}
+            onMouseLeave={startCloseTimer} // MODIFIED
           >
             In-Ears
           </a>
-          <a 
-            href="/about" 
-            id="a3" 
+          <a
+            href="/about"
+            id="a3"
             className={`${isDarkMode ? 'hover:text-white/70' : 'hover:text-black/70'} transition-all duration-300`}
-            onMouseEnter={() => handleLinkMouseEnter('a3')}
-            onMouseLeave={handleLinkMouseLeave}
+            onMouseEnter={() => handleMouseEnter('a3')}
+            onMouseLeave={startCloseTimer} // MODIFIED
           >
             About
           </a>
-          <a 
-            href="/products/c" 
-            id="a4" 
+          <a
+            href="/products/c"
+            id="a4"
             className={`${isDarkMode ? 'hover:text-white/70' : 'hover:text-black/70'} transition-all duration-300`}
-            onMouseEnter={() => handleLinkMouseEnter('a4')}
-            onMouseLeave={handleLinkMouseLeave}
+            onMouseEnter={() => handleMouseEnter('a4')}
+            onMouseLeave={startCloseTimer} // MODIFIED
           >
             Store
           </a>
@@ -238,45 +247,31 @@ const Stickyhero = () => {
           </div>
         </div>
       </div>
-      {/* Dropdown Bar */}
-      {activeDropdown && (
-        <div 
-          className="w-screen h-[35vh] absolute left-0 z-[9999998] transition-all duration-300"
-          style={{ 
-            backgroundColor: dropdownColors[activeDropdown],
-            top: '100%', // Positions the dropdown directly below the parent navbar
-          }}
-          onMouseEnter={() => handleDropdownMouseEnter(activeDropdown)}
-          onMouseLeave={handleDropdownMouseLeave}
-        >
-          {activeDropdown === 'a1' && (
-            <div className="w-full h-full flex items-center justify-center">
-              {/* Content for Headphones */}
-              <p>Headphones Dropdown Content Here</p>
-            </div>
-          )}
-          {activeDropdown === 'a2' && (
-            <div className="w-full h-full flex items-center justify-center">
-              {/* Content for In-Ears */}
-              <p>In-Ears Dropdown Content Here</p>
-            </div>
-          )}
-          {activeDropdown === 'a3' && (
-            <div className="w-full h-full flex items-center justify-center">
-              {/* Content for About */}
-              <p>About Dropdown Content Here</p>
-            </div>
-          )}
-          {activeDropdown === 'a4' && (
-            <div className="w-full h-full flex items-center justify-center">
-              {/* Content for Store */}
-              <p>Store Dropdown Content Here</p>
-            </div>
-          )}
+      
+      <div
+        className={`
+          absolute top-full left-0 w-screen overflow-hidden
+          transition-[max-height,opacity,background-color] duration-500 ease-in-out
+          ${activeDropdown ? 'max-h-[25vh] opacity-100' : 'max-h-0 opacity-0'}
+        `}
+        style={{
+          // MODIFIED: Also transition the background color smoothly
+          backgroundColor: activeDropdown ? dropdownColors[activeDropdown] : 'transparent',
+          zIndex: 9999998,
+        }}
+        onMouseEnter={cancelCloseTimer} // MODIFIED: Keep it open when mouse enters
+        onMouseLeave={startCloseTimer}   // MODIFIED: Start closing when mouse leaves
+      >
+        <div className="h-[25vh] w-full flex items-center justify-center">
+          {activeDropdown === 'a1' && <p>Headphones Dropdown Content Here</p>}
+          {activeDropdown === 'a2' && <p>In-Ears Dropdown Content Here</p>}
+          {activeDropdown === 'a3' && <p>About Dropdown Content Here</p>}
+          {activeDropdown === 'a4' && <p>Store Dropdown Content Here</p>}
         </div>
-      )}
+      </div>
     </div>
   );
 };
+
 
 export default Stickyhero;

@@ -7,6 +7,7 @@ import sampleVideo2 from './hd660s2.mp4';
 import sampleVideo3 from './stellia.mp4';
 import ie9 from './ie9.mp4';
 import ie6 from './ie6.mp4';
+import empy from './empy.mp4';
 import './Home.css';
 import FramerEmbed from './Framerfile';
 import Fhero from './Footer';
@@ -15,6 +16,7 @@ import { useNavigate } from 'react-router-dom';
 
 const carouselItems = [
   {
+    
     title: "Focal",
     topic: "BATHYS",
     video: sampleVideo,
@@ -49,6 +51,12 @@ const carouselItems = [
     topic: "HD 660S2",
     video: sampleVideo2,
     link: "1",
+  },
+  {
+    title: "Meze",
+    topic: "EMPYREAN II",
+    video: empy,
+    link: "8",
   },
 ];
 

@@ -12,7 +12,7 @@ import FramerEmbed from "./Framerfile";
 import Fhero from "./Footer";
 import Prodata from "./Prodata";
 import { useNavigate } from "react-router-dom";
-import { useTheme } from "./ThemeContext.jsx"; // Import useTheme
+import { useTheme } from "./ThemeContext.jsx"; 
 
 const carouselItems = [
   {
@@ -113,7 +113,7 @@ const [videoDuration, setVideoDuration] = useState(15000);
   const borderClass = isDarkMode ? "border-white" : "border-black";
 
   return (
-    <div className={isDarkMode ? "" : "bg-white"}>
+    <div className={`${bgClass}`}>
       <Hero /> {/* No need to pass isDarkMode and setIsDarkMode now */}
       <Stickyhero />
       <div id="video" className="absolute top-[17vh] h-[83vh] w-screen">

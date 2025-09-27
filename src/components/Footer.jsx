@@ -44,12 +44,12 @@ const Footer = () => {
           transform-origin: bottom center;
         }
       `}</style>
-      <div className={`h-[85vh] w-screen pt-[40vh] ${isDarkMode ? 'bg-black' : 'bg-white'} font-roboto text-100 relative`}>
+      <div className={`h-[85vh] w-screen pt-[40vh] text-[0.7em] lg:text-[1em] ${isDarkMode ? 'bg-black' : 'bg-white'} font-roboto text-100 relative`}>
         <div
           id="bottomnav"
           className={`px-10 h-full ${isDarkMode ? 'text-white' : 'text-black'} text-center font-100 bg-transparent backdrop-blur-sm flex flex-col justify-center items-center text-[19px] gap-[30px] tracking-[0.25em] font-roboto`}
         >
-          <hr className={`w-[90%] border-t mb-6 ${isDarkMode ? 'border-white/80' : 'border-black/80'}`} style={{ borderWidth: '0.5px' }} />
+          <hr className={`w-[90%] pb-2 lg:pb-0 border-t mb-6 ${isDarkMode ? 'border-white/80' : 'border-black/80'}`} style={{ borderWidth: '0.5px' }} />
           <div className="h-[calc(40vh-17vh)] flex flex-col md:flex-row justify-center items-center text-[19px] gap-8 md:gap-16 tracking-[0.15em] font-roboto">
             <a href="/src/Pages/Provider" id="a1" className={`${isDarkMode ? 'hover:text-white/70' : 'hover:text-black/70'} transition-all duration-300`}>
               Provider

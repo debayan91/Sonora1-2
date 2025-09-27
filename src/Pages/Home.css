@@ -1,0 +1,157 @@
+@keyframes showup{
+    from{
+        transform: translateY(3em);
+        opacity: 0.5;
+    }
+   to{
+    opacity: 1;
+    transform : translateY(0);
+   }
+}
+@keyframes showup1{
+    from{
+        transform: translateY(4em);
+        opacity: 0.5;
+    }
+   to{
+    opacity: 1;
+    transform : translateY(0);
+   }
+}
+@keyframes showup2{
+    from{
+        transform: translateY(1.1em);
+        opacity: 0.5;
+    }
+   to{
+    opacity: 1;
+    transform : translateY(0);
+   }
+}
+@keyframes showup3{
+    from{
+        transform: translateY(1em);
+        opacity: 0.5;
+    }
+   to{
+    opacity: 1;
+    transform : translateY(0);
+   }
+}
+@keyframes showleft{
+    from{
+        transform: translateX(2em);
+        filter : blur(1em);
+        opacity: 0;
+    }
+   to{
+    opacity: 1;
+    filter: blur(0);
+    transform : translateX(0);
+   }
+}
+@keyframes showright{
+    from{
+        transform: translateX(-2em);
+        filter : blur(1em);
+        opacity: 0;
+    }
+   to{
+    opacity: 1;
+    filter: blur(0);
+    transform : translateX(0);
+   }
+}
+#register{
+    animation: showup ease 0.5s;
+}
+#register1{
+    animation: showup1 ease 1s;
+}
+#title{
+    animation: showup3 ease 0.5s;
+}
+#topic{
+    animation: showup2 ease 0.7s;
+}
+#carousel:hover [style*="animation: progress"] {
+    animation-play-state: paused;
+}
+@keyframes progress {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+  }
+#logon{
+    height:40px;
+
+}
+#logon1{
+    height:25px;
+    margin-top:10px;
+    margin-bottom: 5px;
+}
+@keyframes show{
+    from{
+        transform: translateY(13em);
+        opacity: 0;
+    }
+   to{
+    opacity: 1;
+    transform : translateY(0);
+   }
+}
+#shado{
+    box-shadow: 10px 20px 50px 20px rgba(0, 0, 0, 0.524);
+    -webkit-backdrop-filter:blur(10em);
+    backdrop-filter:blur(1em);
+    z-index:10000000;
+    border-radius:1em;
+}
+#shado input,button, #u{
+    animation:show 0.9s ease;
+}
+#Why1{
+    animation: showup 1s ease;
+}
+#sm{
+    transform: scale(0.9);
+}
+/* Fade In Animation for Carousel Text */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fadeIn {
+  animation: fadeIn 1s ease-out forwards;
+}
+
+/* Slide Up Animation for Buttons */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-slideUp {
+  animation: slideUp 1.2s ease-out forwards;
+}
+
+/* Progress Bar Animation */
+@keyframes progress {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}

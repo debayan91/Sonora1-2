@@ -1,0 +1,45 @@
+a {
+  display: inline-block;
+  position: relative;
+}
+
+a::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 1px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--underline-color, #ffffff); /* Default to white, overridden by theme */
+  transition: transform 0.5s ease-out;
+}
+
+a:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom center;
+}
+
+#bottomnav {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  height: 7vh;
+}
+
+#shadow {
+  text-shadow: 3px 3px 20px #000;
+}
+
+@keyframes spa {
+  from {
+    letter-spacing: 0.3em;
+  }
+  to {
+    letter-spacing: 0.1em;
+  }
+}
+
+.ani {
+  animation: spa ease 1.2s;
+}

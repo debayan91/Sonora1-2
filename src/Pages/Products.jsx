@@ -125,7 +125,7 @@ const Products = () => {
                                     />
                                 </div>
                                 <div className="py-4 px-2">
-                                    <div className="flex text-[0.7em] lg:text-[1em] w-full justify-between">
+                                    <div className="flex text-[0.6em] lg:text-[1em] w-full justify-between">
 
                                         <div className={` font-extralight tracking-widest uppercase mb-1 line-clamp-2 ${textColor}`}>{product.bname}</div>
 

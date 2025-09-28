@@ -155,7 +155,7 @@ const Header_sticky = () => {
     const underlineStyle = { '--underline-color': isDarkMode ? '#ffffff' : '#000000' };
 
     return (
-        <header id="bottomnav" className={`w-screen bg-transparent flex z-[999] flex-col justify-center ${isDarkMode ? 'text-white' : 'text-black'} text-center font-100 relative`} style={underlineStyle}>
+        <header id="bottomnav" className={`w-full bg-transparent flex z-[999] flex-col justify-center ${isDarkMode ? 'text-white' : 'text-black'} text-center font-100 relative`} style={underlineStyle}>
             <div id="bottomnav-inner" className={`px-10 h-full ${isDarkMode ? 'bg-gradient-to-br from-[rgba(0,0,0,1)] to-[rgba(0,0,0,0.8)] border-b-black' : 'bg-gradient-to-br from-[rgba(255,255,255,1)] to-[rgba(255,255,255,0.8)] border-b-white'} backdrop-blur-sm flex flex-row justify-between items-center text-[19px] gap-14 tracking-[0.25em] font-roboto border-b-[1px]`}>
                 <div className='uppercase hidden md:flex pl-5 flex-row justify-between items-center text-[15px] gap-14 tracking-[0.25em] font-roboto'>
                     <Link to="/products/c/headphones" className='desktop-nav-link '>Headphones</Link>

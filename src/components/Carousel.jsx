@@ -36,7 +36,7 @@ const Carousel = () => {
     }, [current]);
 
     return (
-        <div id="video-container" className="relative h-full w-screen">
+        <div id="video-container" className="relative h-full w-full">
             <div id="carousel" className="h-full w-full overflow-hidden relative">
                 <div id="list" className="absolute inset-0">
                     {carouselItems.map((item, index) => (

@@ -164,17 +164,8 @@ const Prod = () => {
                 }
             `}</style>
             <div className="font-roboto tracking-widest flex flex-col items-center relative">
-                {/* FIX 1: Restored the dynamic background image and filter styles */}
-                <div className="absolute inset-0 -z-20 bg-cover bg-scroll" style={{
-                    backgroundImage: `url(${product.category === 'headphones' ? 'https://w.wallhaven.cc/full/0j/wallhaven-0jkxqp.jpg' : 'https://mezeaudio.com/cdn/shop/files/Meze-Empyrean-headphone-01-grain_11e6522a-cff7-4d26-aea6-7f4d3da918eb.webp?v=1726579193&width=3000'})`,
-                    backgroundPosition: product.category === 'headphones' ? 'center' : 'bottom right',
-                    filter: isDarkMode ? 'grayscale(100%) brightness(30%)' : 'grayscale(100%) brightness(100%)',
-                }}/>
-                <div className="absolute inset-0 -z-10" style={{
-                    backgroundImage: isDarkMode
-                        ? "linear-gradient(to bottom, rgba(0,0,0,0) 50%, rgba(0,0,0,1) 95%)"
-                        : "linear-gradient(to bottom, rgba(255,255,255,0) 50%, rgba(255,255,255,1) 95%)",
-                }}/>
+                <div className="absolute inset-0 -z-20 bg-cover bg-scroll" />
+                <div className="absolute inset-0 -z-10" />
 
                 <div className="w-full z-10"><Header_top /></div>
                 <div className="sticky top-0 w-full z-50"><Header_sticky /></div>
@@ -210,14 +201,13 @@ const Prod = () => {
                                 <div onMouseMove={handleMouseMove} onMouseEnter={() => setIsHovering(true)} onMouseLeave={() => setIsHovering(false)} className="relative w-full aspect-square">
                                     <img src={mainImage} onClick={() => handleImageClick(mainImage)} className="h-full w-full object-contain cursor-pointer" alt="Main product view" />
                                     {isHovering && (
-                                        <div className={`hidden lg:block absolute left-full top-0 ml-4 w-full h-full border overflow-hidden shadow-lg z-50 ${isDarkMode ? 'bg-black border-gray-700' : 'bg-white border-gray-300'}`}>
+                                        <div className={`hidden lg:block absolute left-full top-0 ml-4 w-full h-full border overflow-hidden  z-50 ${isDarkMode ? 'bg-black border-none' : 'bg-white border-none'}`}>
                                             <div className="w-full h-full bg-cover bg-no-repeat " style={{ backgroundImage: `url(${mainImage})`, backgroundSize: '250%', backgroundPosition: `${zoomPosition.x}% ${zoomPosition.y}%` }}/>
                                         </div>
                                     )}
                                 </div>
                             </div>
 
-                            {/* Product Details */}
                             <div ref={detRef} className={`w-full lg:w-[45%] flex flex-col gap-2 p-2 lg:p-8 order-3 ${textClass}`}>
                                 <h2 className={`text-xl md:text-2xl tracking-[0.2em] font-light ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>{product.bname}</h2>
                                 <h1 className="text-3xl md:text-5xl font-medium mt-1">{product.pname}</h1>

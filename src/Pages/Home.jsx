@@ -95,12 +95,12 @@ const Home = () => {
             <Header_top />
             <Header_sticky />
 
-            <div id="video" className="absolute top-[16.5vh] h-[84vh] w-screen">
+            <div id="video" className="absolute top-[16.5vh] h-[84vh] w-full">
                <Carousel />
             </div>
-            <div className={`h-[83vh] w-screen ${isDarkMode ? 'bg-black' : 'bg-white'}`}></div>
+            <div className={`h-[83vh] w-full ${isDarkMode ? 'bg-black' : 'bg-white'}`}></div>
 
-            <main ref={mainContainerRef} className={`w-screen overflow-hidden ${isDarkMode ? 'bg-black' : 'bg-white'}`}>
+            <main ref={mainContainerRef} className={`w-full overflow-hidden ${isDarkMode ? 'bg-black' : 'bg-white'}`}>
                 <section data-scroll className="py-24 md:py-32">
                     <div className="max-w-6xl mx-auto px-4 sm:px-8 flex flex-col items-center">
                         <h2 className={`text-3xl md:text-4xl font-light tracking-[0.3em] mb-4 text-center ${baseTextColor}`}>

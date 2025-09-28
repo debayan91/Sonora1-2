@@ -1,6 +1,6 @@
 @keyframes showup{
     from{
-        transform: translateY(3em);
+        transform: translateY(1em);
         opacity: 0.5;
     }
    to{
@@ -10,7 +10,7 @@
 }
 @keyframes showup1{
     from{
-        transform: translateY(4em);
+        transform: translateY(1em);
         opacity: 0.5;
     }
    to{
@@ -20,7 +20,7 @@
 }
 @keyframes showup2{
     from{
-        transform: translateY(1.1em);
+        transform: translateY(1em);
         opacity: 0.5;
     }
    to{
@@ -66,7 +66,7 @@
     animation: showup ease 0.5s;
 }
 #register1{
-    animation: showup1 ease 1s;
+    animation: showup1 ease 0.8s;
 }
 #title{
     animation: showup3 ease 0.5s;

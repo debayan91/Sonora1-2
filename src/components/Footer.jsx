@@ -49,8 +49,8 @@ const Footer = () => {
           id="bottomnav"
           className={`px-10 h-full ${isDarkMode ? 'text-white' : 'text-black'} text-center font-100 bg-transparent backdrop-blur-sm flex flex-col justify-center items-center text-[19px] gap-[30px] tracking-[0.25em] font-roboto`}
         >
-          <hr className={`w-[90%] mb-10 border-t lg:mb-6 ${isDarkMode ? 'border-white/80' : 'border-black/80'}`} style={{ borderWidth: '0.5px' }} />
-          <div className="h-[calc(40vh-17vh)] flex flex-col md:flex-row justify-center items-center text-[19px] gap-8 md:gap-16 tracking-[0.15em] font-roboto">
+          <hr className={`w-[90%]  mb-10 border-t lg:mb-6 ${isDarkMode ? 'border-white/80' : 'border-black/80'}`} style={{ borderWidth: '0.5px' }} />
+          <div className="h-[calc(40vh-17vh)] uppercase flex flex-col md:flex-row justify-center items-center text-[15px] gap-8 md:gap-16 tracking-[0.15em] font-roboto">
             <a href="/src/Pages/Provider" id="a1" className={`${isDarkMode ? 'hover:text-white/70' : 'hover:text-black/70'} transition-all duration-300`}>
               Provider
             </a>
@@ -86,15 +86,7 @@ const Footer = () => {
               </a>
             </div>
           </div>
-          <div
-            onClick={() => navigate('/')}
-            className={`cursor-pointer w-screen text-[50px] tracking-widest ${isDarkMode ? 'text-white bg-black' : 'text-black bg-white'} flex flex-col justify-center items-center text-center font-aboreto font-100 mb-8`}
-          >
-            SONORA
-            <span className={`text-[12px] flex flex-row gap-2 font-times ${isDarkMode ? 'text-white' : 'text-black'}`}>
-              <span className="tracking-normal">by</span> HARMAN
-            </span>
-          </div>
+            <div onClick={() => navigate('/')} className="ani"><img className={`object-cover h-20 lg:h-24 overflow-hidden ${isDarkMode ? 'invert' : ''}`} src={"/logo_didot.png"}></img></div>
           <button
             onClick={(e) => {
               e.stopPropagation(); // Prevent triggering the navigate('/') from parent div

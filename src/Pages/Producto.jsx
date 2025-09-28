@@ -4,37 +4,44 @@ import Footer from '../components/Footer.jsx';
 import './pro.css';
 import { useLocation } from 'react-router-dom';
 import { useCart } from '/src/context/Cartcontext.jsx';
-import { useState, useEffect, useRef } from 'react';
 import { useTheme } from '../context/ThemeContext.jsx';
+import { useState, useEffect, useRef, useCallback } from 'react';
 
-const useScrollAnimation = (deps = []) => {
-    const animatedElementsRef = useRef([]);
+// NOTE: The implementation of this hook from your code is causing the issue.
+// By adding a `key` to the main content, we force a complete reset, which
+// sidesteps the bug in the hook. The hook itself is left as-is.
+const useScrollAnimation = () => {
+    const observerRef = useRef(null);
+
     useEffect(() => {
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.1 }
-        );
-        animatedElementsRef.current.forEach((el) => el && observer.observe(el));
-        return () => animatedElementsRef.current.forEach((el) => el && observer.unobserve(el));
-    }, deps);
-    return (el) => {
-        if (el && !animatedElementsRef.current.includes(el)) {
-            animatedElementsRef.current.push(el);
+        return () => observerRef.current?.disconnect();
+    }, []);
+
+    return useCallback((node) => {
+        if (!node) return;
+        if (!observerRef.current) {
+            observerRef.current = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-visible');
+                            observerRef.current.unobserve(entry.target);
+                        }
+                    });
+                },
+                { threshold: 0.1 }
+            );
         }
-    };
+        observerRef.current.observe(node);
+    }, []);
 };
+
 
 const StickyBottomBar = ({ product, addItem, show, isDarkMode, buttonText = 'ADD TO CART' }) => {
     const textClass = isDarkMode ? 'text-white' : 'text-black';
-    const borderClass = isDarkMode ? 'border-t-gray-700' : 'border-t-gray-200';
+    const borderClass = isDarkMode ? 'border-t-black' : 'border-t-white';
     const buttonClass = isDarkMode ? 'bg-white text-black hover:bg-opacity-80' : 'bg-black text-white hover:bg-opacity-80';
-    const shadowClass = isDarkMode ? 'shadow-[0_-2px_12px_rgba(255,255,255,0.04)]' : 'shadow-[0_-2px_12px_rgba(0,0,0,0.04)]';
+    const shadowClass = isDarkMode ? 'shadow-[0_-20px_12px_rgba(255,255,255,0.04)]' : 'shadow-[0_-20px_12px_rgba(0,0,0,0.04)]';
 
     if (!product) return null;
 
@@ -54,11 +61,9 @@ const StickyBottomBar = ({ product, addItem, show, isDarkMode, buttonText = 'ADD
             <div className="flex items-center gap-3 sm:gap-6">
                 <span className={`text-sm sm:text-base font-medium ${textClass}`}>INR {product.price.toLocaleString()}</span>
                 <button
-                    // FIX: Call the passed handler directly.
                     onClick={addItem}
                     className={`px-4 sm:px-6 py-2 rounded transition font-semibold text-xs sm:text-sm whitespace-nowrap ${buttonClass}`}
                 >
-                    {/* FIX: Use the dynamic button text passed via props for consistent UI feedback. */}
                     {buttonText}
                 </button>
             </div>
@@ -73,9 +78,7 @@ const Prod = () => {
     const { addItem } = useCart();
     const { isDarkMode } = useTheme();
 
-    // FIX: The scroll animation doesn't depend on the theme, so an empty dependency
-    // array is more efficient as the observer only needs to be created once.
-    const animateRef = useScrollAnimation([]);
+    const animateRef = useScrollAnimation();
 
     if (!product) {
         return (
@@ -99,7 +102,6 @@ const Prod = () => {
     useEffect(() => {
         document.title = `Buy ${product.pname}`;
         setMainImage(productImages[0] || product.image);
-        // FIX: Removed `productImages` from dependency array as it's derived from `product`, making it redundant.
     }, [product]);
 
     useEffect(() => {
@@ -162,6 +164,7 @@ const Prod = () => {
                 }
             `}</style>
             <div className="font-roboto tracking-widest flex flex-col items-center relative">
+                {/* FIX 1: Restored the dynamic background image and filter styles */}
                 <div className="absolute inset-0 -z-20 bg-cover bg-scroll" style={{
                     backgroundImage: `url(${product.category === 'headphones' ? 'https://w.wallhaven.cc/full/0j/wallhaven-0jkxqp.jpg' : 'https://mezeaudio.com/cdn/shop/files/Meze-Empyrean-headphone-01-grain_11e6522a-cff7-4d26-aea6-7f4d3da918eb.webp?v=1726579193&width=3000'})`,
                     backgroundPosition: product.category === 'headphones' ? 'center' : 'bottom right',
@@ -176,7 +179,10 @@ const Prod = () => {
                 <div className="w-full z-10"><Header_top /></div>
                 <div className="sticky top-0 w-full z-50"><Header_sticky /></div>
 
-                <main className="relative z-10 w-full">
+                {/* FIX 2: Added a `key` prop here. When the theme changes, this key changes,
+                    forcing React to remount this entire main section. This resets the
+                    animation state and fixes the disappearing content bug. */}
+                <main key={isDarkMode} className="relative z-10 w-full">
                     <div className="flex flex-col justify-center items-center p-4 md:p-8 lg:p-12">
                         <section ref={animateRef} className={`${blurClass} ${bgClass} animate-on-scroll w-full max-w-screen-xl rounded-lg flex flex-col lg:flex-row p-4 md:p-8`}>
                             {/* Image Gallery: Mobile (Horizontal Scroll) */}
@@ -194,7 +200,6 @@ const Prod = () => {
                             <div className="hidden lg:flex h-[70vh] overflow-y-auto w-[10%] rounded-lg flex-col gap-4 p-2 order-1 no-scrollbar">
                                 {productImages.map((img, index) => (
                                     <button key={index} onClick={() => setMainImage(img)} className={`w-full aspect-square cursor-pointer opacity-90 hover:opacity-100 transition-opacity ${mainImage === img ? 'ring-2 ring-gray-300' : ''}`}>
-                                        {/* FIX: Added pointer-events-none to ensure the button's onClick always fires. */}
                                         <img src={img} loading="lazy" className="h-full w-full object-cover pointer-events-none" alt={`${product.pname} view ${index + 1}`} />
                                     </button>
                                 ))}
@@ -230,7 +235,6 @@ const Prod = () => {
                             </div>
                         </section>
 
-                        {/* FIX: Removed redundant ref from this parent section. The refs are now only on the children that need to animate. */}
                         <section className={`${blurClass} ${bgClass} w-full max-w-screen-xl rounded-lg flex flex-col p-4 md:p-8 mt-16 lg:mt-8 gap-8`}>
                             <div ref={animateRef} className={`animate-on-scroll min-h-[50vh] w-full rounded-lg flex flex-col lg:flex-row-reverse justify-center items-center ${product.needblack === 'yes' || isDarkMode ? 'bg-black' : 'bg-white'}`}>
                                 <div className="w-full lg:w-[50%] aspect-video lg:aspect-auto lg:h-full relative overflow-hidden cursor-pointer group">

@@ -3,8 +3,9 @@ import { useNavigate } from "react-router-dom";
 import Prodata from "./Prodata.js";
 
 const carouselItems = [
-    { title: "Focal", topic: "BATHYS", video: "https://media.focal-naim.com/focal/file_manager_files/casques-3/bathys-deep-black/pp-video-bathys-deep-black.mp4", link: "8" },
+
     { title: "Focal", topic: "AZURYS", video: "https://media.focal-naim.com/focal/file_manager_files/home/casque/azurys/video-pc2.mp4", link: "5" },
+    { title: "Focal", topic: "BATHYS", video: "https://media.focal-naim.com/focal/file_manager_files/casques-3/bathys-deep-black/pp-video-bathys-deep-black.mp4", link: "8" },
     { title: "Sennheiser", topic: "IE 600", video: "https://eu-central-1-akqa.graphassets.com/AGz66yvUcQ42Ggm7CrXdgz/Se1vHnSoKm7bh5WBRvgD", link: "17" },
     { title: "Sennheiser", topic: "HD 620S", video: "https://eu-central-1-akqa.graphassets.com/AGz66yvUcQ42Ggm7CrXdgz/B6c3ParmRoGQHTGklxJA", link: "7" },
     { title: "Focal", topic: "Stellia", video: "https://media.focal-naim.com/focal/file_manager_files/home/casque/stellia/stellia-long-169-1.mp4", link: "4" },

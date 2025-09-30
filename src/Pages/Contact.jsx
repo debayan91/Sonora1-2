@@ -19,8 +19,7 @@ const ContactPage = () => {
             backgroundAttachment: 'scroll'
           }}
         />
-        {/* Separate overlay for more gradual linear gradient to black at bottom */}
-        <div 
+        <div
           className="absolute inset-0 -z-19"
           style={{
             backgroundImage: "linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.05) 30%, rgba(0, 0, 0, 0.1) 40%, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0.3) 60%, rgba(0, 0, 0, 0.5) 70%, rgba(0, 0, 0, 0.7) 80%, rgba(0, 0, 0, 1) 95%)",

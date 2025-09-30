@@ -48,22 +48,21 @@ const Footer = () => {
                     id="bottomnav"
                     className={`px-10 h-full ${isDarkMode ? 'text-white' : 'text-black'} text-center font-100 bg-transparent backdrop-blur-sm flex flex-col justify-center items-center text-[19px] gap-[30px] tracking-[0.25em] font-roboto`}
                 >
-                    {/* FIX: Changed w-[90vw] to w-[90%] to respect parent padding */}
                     <hr className={`w-[90%] mb-10 border-t lg:mb-6 ${isDarkMode ? 'border-white/80' : 'border-black/80'}`} style={{ borderWidth: '0.5px' }} />
                     <div className="h-[calc(40vh-17vh)] uppercase flex flex-col md:flex-row justify-center items-center text-[15px] gap-8 md:gap-16 tracking-[0.15em] font-roboto">
-                        <a href="/src/Pages/Provider" id="a1" className={`${isDarkMode ? 'hover:text-white/70' : 'hover:text-black/70'} transition-all duration-300`}>
+                        <a href="/Provider" id="a1" className={`${isDarkMode ? 'hover:text-white/70' : 'hover:text-black/70'} transition-all duration-300`}>
                             Provider
                         </a>
-                        <a href="/src/Pages/Legal" id="a2" className={`${isDarkMode ? 'hover:text-white/70' : 'hover:text-black/70'} transition-all duration-300`}>
+                        <a href="/Legal" id="a2" className={`${isDarkMode ? 'hover:text-white/70' : 'hover:text-black/70'} transition-all duration-300`}>
                             Legal
                         </a>
-                        <a href="/src/Pages/Privacy" id="a3" className={`${isDarkMode ? 'hover:text-white/70' : 'hover:text-black/70'} transition-all duration-300`}>
+                        <a href="/Privacy" id="a3" className={`${isDarkMode ? 'hover:text-white/70' : 'hover:text-black/70'} transition-all duration-300`}>
                             Privacy
                         </a>
-                        <a href="/src/Pages/Products" id="a4" className={`${isDarkMode ? 'hover:text-white/70' : 'hover:text-black/70'} transition-all duration-300`}>
+                        <a href="/Products/c" id="a4" className={`${isDarkMode ? 'hover:text-white/70' : 'hover:text-black/70'} transition-all duration-300`}>
                             Store
                         </a>
-                        <a href="/src/Pages/Contact" id="a5" className={`${isDarkMode ? 'hover:text-white/70' : 'hover:text-black/70'} transition-all duration-300`}>
+                        <a href="/Contact" id="a5" className={`${isDarkMode ? 'hover:text-white/70' : 'hover:text-black/70'} transition-all duration-300`}>
                             Contact
                         </a>
                     </div>

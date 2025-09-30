@@ -43,20 +43,10 @@ const CartPage = () => {
   return (
     <>
     <div className={`font-roboto tracking-widest min-h-screen flex flex-col items-center relative`}>
-      {/* Background image with grayscale and brightness, scrolls with content */}
-      <div 
+      <div
         className="absolute inset-0 -z-20"
-        style={{
-          backgroundImage: "url(https://w.wallhaven.cc/full/0j/wallhaven-0jkxqp.jpg)",
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          filter: isDarkMode ? 'brightness(60%)' : 'brightness(60%)',
-          backgroundAttachment: 'scroll'
-        }}
       />
-      {/* Separate overlay for gradual linear gradient to black or white at bottom, adjusted stops */}
-      <div 
+      <div
         className="absolute inset-0 -z-19"
         style={{
           background: isDarkMode 
@@ -64,23 +54,21 @@ const CartPage = () => {
             : "linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%,rgba(255, 255, 255, 0.3) 40%, rgba(255, 255, 255, 0.5) 70%, rgba(255, 255, 255, 1) 100%)"
         }}
       />
-      
       <div className="relative z-10 w-full">
         <Header_top />
-        {/* Bottom navbar (sticky, with explicit style to enforce stickiness) */}
         <div className="sticky top-0 w-full z-50" style={{ position: 'sticky', top: '0px', width: '100%', zIndex: 50 }}>
           <Header_sticky />
         </div>
 
         <div className={`container mx-auto px-4 py-8 max-w-6xl min-h-[100vh] ${isDarkMode ? 'text-white' : 'text-black'}`}>
-          <h1 className="text-3xl font-aboreto font-medium mb-8">{`Cart - ${itemCount}`}</h1>
+          <h1 className="text-3xl text-center tracking-widest font-medium mb-8">{`Cart - ${itemCount}`}</h1>
 
           {items.length === 0 ? (
-            <div className={`rounded-lg shadow p-8 text-center border ${isDarkMode ? 'bg-black bg-opacity-50 backdrop-blur-lg' : 'bg-white bg-opacity-50 backdrop-blur-lg'}`} style={{ borderColor: 'rgba(255, 255, 255, 0.5)' }}>
+            <div className={`rounded-lg shadow p-8 text-center border ${isDarkMode ? 'bg-black bg-opacity-50 backdrop-blur-lg' : 'bg-white bg-opacity-50 backdrop-blur-lg'}`} style={{ borderColor: 'rgba(255, 255, 255, 0.9)' }}>
               <h2 className="text-2xl mb-4">Your cart is empty</h2>
               <Link
                 to="/products/c"
-                className={`inline-block px-6 py-3 rounded transition-colors duration-200 ${isDarkMode ? 'bg-black text-white hover:bg-gray-800' : 'bg-white text-black hover:bg-gray-200'}`}
+                className={`inline-block px-6 py-3 rounded transition-colors duration-200 ${isDarkMode ? 'bg-black text-white hover:bg-white/10' : 'bg-white text-black hover:bg-gray-200'}`}
               >
                 Continue Shopping
               </Link>
@@ -88,7 +76,7 @@ const CartPage = () => {
           ) : (
             <div className="flex flex-col lg:flex-row gap-8">
               <div className="lg:w-2/3">
-                <div className={`rounded-lg shadow overflow-hidden border ${isDarkMode ? 'bg-black bg-opacity-50 backdrop-blur-lg' : 'bg-white bg-opacity-50 backdrop-blur-lg'}`} style={{ borderColor: 'rgba(255, 255, 255, 0.5)' }}>
+                <div className={`rounded-lg shadow overflow-hidden border ${isDarkMode ? 'bg-black bg-opacity-50 border-none shadow-[rgb(255,255,255,0.19)] shadow-2xl backdrop-blur-lg' : 'bg-white bg-opacity-50 backdrop-blur-lg'} `}>
                   <div className={``} style={{ borderColor: 'rgba(255, 255, 255, 0.5)' }}>
                     {items.map((item) => (
                       <div key={`${item.id}-${item.quantity}`} className="p-4 flex flex-col sm:flex-row gap-4">
@@ -126,7 +114,7 @@ const CartPage = () => {
                               >
                                 −
                               </button>
-                              <span className={`px-4 py-1 border-x ${isDarkMode ? 'text-white' : 'text-black'}`} style={{ borderColor: 'rgba(255, 255, 255, 0.5)' }}>
+                              <span className={`px-4 py-1 border-x ${isDarkMode ? 'text-white ' : 'text-black'}`} >
                                 {item.quantity}
                               </span>
                               <button
@@ -144,7 +132,7 @@ const CartPage = () => {
                       </div>
                     ))}
                   </div>
-                  <div className={`p-4 border-t flex justify-end`} style={{ borderColor: 'rgba(255, 255, 255, 0.5)' }}>
+                  <div className={`p-4 border-t flex justify-end  `} style={{ borderColor: 'rgba(255, 255, 255, 0.5)' }}>
                     <button
                       onClick={clearCart}
                       className={`hover:text-red-300 transition-colors ${isDarkMode ? 'text-white' : 'text-black'}`}
@@ -155,7 +143,7 @@ const CartPage = () => {
                 </div>
               </div>
               <div className="lg:w-1/3">
-                <div className={`rounded-lg shadow p-6 sticky top-[12vh] border ${isDarkMode ? 'bg-black bg-opacity-50 backdrop-blur-lg' : 'bg-white bg-opacity-50 backdrop-blur-lg'}`} style={{ borderColor: 'rgba(255, 255, 255, 0.5)' }}>
+                <div className={`rounded-lg shadow p-6 sticky top-[12vh] border ${isDarkMode ? 'bg-black bg-opacity-50 backdrop-blur-lg border-none shadow-[rgb(255,255,255,0.19)] shadow-2xl' : 'bg-white bg-opacity-50 backdrop-blur-lg'}`} style={{ borderColor: 'rgba(255, 255, 255, 0.5)' }}>
                   <h2 className="text-xl font-medium mb-4">Order Summary</h2>
                   <div className={`space-y-4 mb-6 ${isDarkMode ? 'text-white' : 'text-black'}`}>
                     <div className="flex justify-between">

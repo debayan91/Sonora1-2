@@ -162,13 +162,13 @@ const Home = () => {
                             <h2 className={`pb-5 font-light text-3xl md:text-4xl ${baseTextColor} tracking-[0.3em] text-center`}>
                                 BESTSELLING HEADPHONES
                             </h2>
-                            <div className={`w-24 h-[1px] mx-auto ${isDarkMode ? "bg-white/40" : "bg-black/40"}`}></div>
+                            <div className={`w-24 h-[1px] mx-auto ${isDarkMode ? "bg-white" : "bg-black"}`}></div>
                         </div>
 
                         {bestsellingHeadphones.map((item, index) => (
                             <div key={item.name} className={`grid grid-cols-1 lg:grid-cols-2 gap-16 items-center ${index > 0 ? 'mt-32 md:mt-48' : ''}`}>
-                                <div data-scroll className={`product-image-card ${index % 2 === 1 ? 'lg:order-2' : ''}`} onClick={() => { const product = Prodata.find((p) => p.pname === item.name); if (product) clicky(product); }}>
-                                    <img src={item.img} className="rounded-2xl glow-effect aspect-square object-cover w-full cursor-pointer" alt={item.name}/>
+                                <div data-scroll className={`product-image-card rounded-2xl shadow-2xl shadow-black ${index % 2 === 1 ? 'lg:order-2' : ''}`} onClick={() => { const product = Prodata.find((p) => p.pname === item.name); if (product) clicky(product); }}>
+                                    <img src={item.img} className="rounded-2xl glow-effect aspect-square object-cover  w-full cursor-pointer" alt={item.name}/>
                                 </div>
                                 <div data-scroll className={index % 2 === 1 ? 'lg:order-1' : ''}>
                                     <h3 className="text-sm font-bold tracking-widest text-gray-400 uppercase">{item.brand}</h3>

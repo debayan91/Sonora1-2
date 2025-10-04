@@ -139,7 +139,7 @@ const Home = () => {
 
                         {bestsellingIEMs.map((item, index) => (
                             <div key={item.name} className={`grid grid-cols-1 lg:grid-cols-2 gap-16 items-center ${index > 0 ? 'mt-32 md:mt-48' : ''}`}>
-                                <div data-scroll className={`product-image-card ${index % 2 === 1 ? 'lg:order-2' : ''}`} onClick={() => { const product = Prodata.find((p) => p.pname === item.name); if (product) clicky(product); }}>
+                                <div data-scroll className={`product-image-card rounded-2xl shadow-2xl shadow-black ${index % 2 === 1 ? 'lg:order-2' : ''}`} onClick={() => { const product = Prodata.find((p) => p.pname === item.name); if (product) clicky(product); }}>
                                     <img src={item.img} className="rounded-2xl glow-effect aspect-square object-cover w-full cursor-pointer" alt={item.name}/>
                                 </div>
                                 <div data-scroll className={index % 2 === 1 ? 'lg:order-1' : ''}>
